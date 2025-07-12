@@ -130,7 +130,7 @@ export class MenuService {
           name: '🥤 Smoothie Bowl',
           description: '24G Plant Protein, blueberries, strawberries, banana, hazelnuts, pecan nuts, other seeds 🍓🍌',
           price: 299,
-          image: '/images/menu/smoothie-bowl.jpg',
+          image: 'https://placeholder-blob-url.vercel-storage.com/smoothie-bowl.jpg',
           ingredients: ['🌿 24G Plant Protein', '🫐 Blueberries', '🍓 Strawberries', '🍌 Banana', '🌰 Hazelnuts', '🥜 Pecan nuts', '🌱 Seeds'],
           customizations: [],
           qtyAvailable: 10
@@ -140,7 +140,7 @@ export class MenuService {
           name: '🥣 Overnight Oats with Berries and Nuts',
           description: 'Creamy overnight oats topped with fresh berries and crunchy nuts 🫐🥜',
           price: 199,
-          image: '/images/menu/overnight-oats.jpg',
+          image: 'https://placeholder-blob-url.vercel-storage.com/overnight-oats.jpg',
           ingredients: ['🌾 Rolled oats', '🫐 Fresh berries', '🥜 Mixed nuts', '🌱 Chia seeds', '🥛 Almond milk', '🍯 Honey'],
           customizations: [
             {
@@ -158,7 +158,7 @@ export class MenuService {
           name: '☕ Filter Black Coffee (Hot)',
           description: 'Freshly Brewed premium beans black filter coffee iced or hot 🔥',
           price: 99,
-          image: '/images/menu/filter-coffee.jpg',
+          image: 'https://placeholder-blob-url.vercel-storage.com/filter-coffee.jpg',
           ingredients: ['☕ Premium coffee beans', '💧 Filtered water'],
           customizations: [],
           qtyAvailable: 5
@@ -168,7 +168,7 @@ export class MenuService {
           name: '🧊 Filter Black Coffee (Iced)',
           description: 'Freshly Brewed premium beans black filter coffee iced or hot ❄️',
           price: 99,
-          image: '/images/menu/filter-coffee.jpg',
+          image: 'https://placeholder-blob-url.vercel-storage.com/filter-coffee.jpg',
           ingredients: ['☕ Premium coffee beans', '💧 Filtered water', '🧊 Ice'],
           customizations: [],
           qtyAvailable: 8

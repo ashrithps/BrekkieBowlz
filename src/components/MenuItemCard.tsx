@@ -86,14 +86,9 @@ export default function MenuItemCard({
           alt={item.name}
           className="w-full h-full object-cover border-b-2 border-pink-100"
           onError={(e) => {
-            // Fallback to Unsplash images if local images aren't available
-            const fallbackUrls = {
-              'smoothie-bowl': 'https://images.unsplash.com/photo-1511690743698-d9d85f2fbf38?w=400&h=300&fit=crop&crop=center',
-              'overnight-oats': 'https://images.unsplash.com/photo-1517982258267-41e4a6f7ee2c?w=400&h=300&fit=crop&crop=center',
-              'filter-coffee-hot': 'https://images.unsplash.com/photo-1497935586351-b67a49e012bf?w=400&h=300&fit=crop&crop=center',
-              'filter-coffee-iced': 'https://images.unsplash.com/photo-1461023058943-07fcf677d9e2?w=400&h=300&fit=crop&crop=center'
-            }
-            e.currentTarget.src = fallbackUrls[item.id as keyof typeof fallbackUrls] || fallbackUrls['smoothie-bowl']
+            // Fallback to default image if Blob URL fails
+            const fallbackUrl = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjMwMCIgdmlld0JveD0iMCAwIDQwMCAzMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSI0MDAiIGhlaWdodD0iMzAwIiBmaWxsPSIjRjNGNEY2Ii8+CjxwYXRoIGQ9Ik0yMDAgMTUwQzIwNyAxNTAgMjEzIDEzMyAyMjAgMTI1QzIyNyAxMzMgMjMzIDE1MCAyNDAgMTUwQzIzMyAxNTcgMjI3IDE3NCAyMjAgMTgyQzIxMyAxNzQgMjA3IDE1NyAyMDAgMTUwWiIgZmlsbD0iI0U5MTZFNCI+CjxwYXRoIGQ9Ik0xNjAgMTcwQzE2NSAxNzAgMTcwIDE1NSAxNzUgMTQ5QzE4MCAxNTUgMTg1IDE3MCAxOTAgMTcwQzE4NSAxNzUgMTgwIDE5MCAxNzUgMTk2QzE3MCAxOTAgMTY1IDE3NSAxNjAgMTcwWiIgZmlsbD0iI0VGNDQ0NCI+Cjx0ZXh0IHg9IjIwMCIgeT0iMjMwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmaWxsPSIjNjNCMzdBIiBmb250LWZhbWlseT0ic2Fucy1zZXJpZiIgZm9udC1zaXplPSIxNCIgZm9udC13ZWlnaHQ9IjUwMCI+Rm9vZCBJbWFnZSBOb3QgQXZhaWxhYmxlPC90ZXh0Pgo8L3N2Zz4='
+            e.currentTarget.src = fallbackUrl
           }}
         />
       </div>

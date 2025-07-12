@@ -6,7 +6,7 @@ import './globals.css'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://bowlz.iloop.me'),
+  metadataBase: new URL('https://bowlz.xyz'),
   title: 'Order Brekkie Bowlz RTB',
   description: 'Fresh smoothie bowls, overnight oats & specialty coffee delivered 9-10 AM. Order now for tomorrow!',
   keywords: ['smoothie bowls', 'healthy food', 'breakfast', 'overnight oats', 'coffee', 'RTB', 'delivery'],
@@ -15,11 +15,11 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Order Brekkie Bowlz RTB',
     description: 'Fresh smoothie bowls, overnight oats & specialty coffee delivered 9-10 AM. Order now for tomorrow!',
-    url: 'https://bowlz.iloop.me',
+    url: 'https://bowlz.xyz',
     siteName: 'Brekkie Bowlz RTB',
     images: [
       {
-        url: 'https://bowlz.iloop.me/logos/whatshare.jpg',
+        url: 'https://bowlz.xyz/logos/whatshare.jpg',
         width: 1200,
         height: 630,
         alt: 'Delicious Brekkie Bowlz smoothie bowl with fresh fruits and toppings',
@@ -35,7 +35,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Order Brekkie Bowlz RTB',
     description: 'Fresh smoothie bowls, overnight oats & specialty coffee delivered 9-10 AM',
-    images: ['https://bowlz.iloop.me/logos/whatshare.jpg'],
+    images: ['https://bowlz.xyz/logos/whatshare.jpg'],
     creator: '@brekkiebowlz',
   },
   
@@ -64,7 +64,7 @@ export const metadata: Metadata = {
     'og:image:width': '1200',
     'og:image:height': '630',
     'og:image:type': 'image/jpeg',
-    'og:image:secure_url': 'https://bowlz.iloop.me/logos/whatshare.jpg',
+    'og:image:secure_url': 'https://bowlz.xyz/logos/whatshare.jpg',
     'og:image:alt': 'Delicious Brekkie Bowlz smoothie bowl with fresh fruits and toppings',
   },
 }
