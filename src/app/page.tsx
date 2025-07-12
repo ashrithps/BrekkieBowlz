@@ -49,6 +49,12 @@ export default function CheckoutPage() {
   }, [customerInfo])
 
   const addToCart = (menuItem: any, customizations?: any[]) => {
+    // Check if we can add more of this item (across all customizations)
+    const totalInCart = getTotalQuantityInCart(menuItem.id)
+    if (totalInCart >= menuItem.qtyAvailable) {
+      return // Can't add more, already at stock limit
+    }
+
     setCartItems(prev => {
       const itemId = customizations && customizations.length > 0 
         ? `${menuItem.id}-${customizations.map(c => c.id).join('-')}`
@@ -70,7 +76,9 @@ export default function CheckoutPage() {
         id: itemId,
         price: menuItem.price + customizationPrice,
         customizations: customizations || [],
-        quantity: 1
+        quantity: 1,
+        baseItemId: menuItem.id, // Store the original item ID for stock tracking
+        qtyAvailable: menuItem.qtyAvailable // Keep the original stock limit
       }
       
       return [...prev, itemWithCustomizations]
@@ -81,11 +89,25 @@ export default function CheckoutPage() {
     if (quantity === 0) {
       setCartItems(prev => prev.filter(item => item.id !== id))
     } else {
-      setCartItems(prev =>
-        prev.map(item =>
-          item.id === id ? { ...item, quantity } : item
+      setCartItems(prev => {
+        const item = prev.find(item => item.id === id)
+        if (!item) return prev
+        
+        // Get the base item ID for stock checking
+        const baseItemId = item.baseItemId || item.id
+        const totalInCart = getTotalQuantityInCart(baseItemId)
+        const currentItemQuantity = item.quantity
+        const quantityChange = quantity - currentItemQuantity
+        
+        // Check if the new total would exceed stock
+        if (totalInCart + quantityChange > item.qtyAvailable) {
+          return prev // Don't update if it would exceed stock
+        }
+        
+        return prev.map(cartItem =>
+          cartItem.id === id ? { ...cartItem, quantity } : cartItem
         )
-      )
+      })
     }
   }
 
@@ -115,6 +137,13 @@ export default function CheckoutPage() {
         block: 'start'
       })
     }
+  }
+
+  // Calculate total quantity in cart for a base menu item (across all customizations)
+  const getTotalQuantityInCart = (baseItemId: string) => {
+    return cartItems
+      .filter(item => item.id === baseItemId || item.id.startsWith(`${baseItemId}-`))
+      .reduce((total, item) => total + item.quantity, 0)
   }
 
   if (isLoading) {
@@ -288,7 +317,7 @@ export default function CheckoutPage() {
                 key={item.id}
                 item={item}
                 onAddToCart={addToCart}
-                cartQuantity={cartItems.find(cartItem => cartItem.id === item.id)?.quantity || 0}
+                cartQuantity={getTotalQuantityInCart(item.id)}
                 onUpdateQuantity={updateQuantity}
               />
             ))}

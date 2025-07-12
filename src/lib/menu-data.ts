@@ -7,7 +7,8 @@ export const menuItems: MenuItem[] = [
     description: '24G Plant Protein, blueberries, strawberries, banana, hazelnuts, pecan nuts, other seeds 🍓🍌',
     price: 299,
     image: '/images/menu/smoothie-bowl.jpg',
-    ingredients: ['🌿 24G Plant Protein', '🫐 Blueberries', '🍓 Strawberries', '🍌 Banana', '🌰 Hazelnuts', '🥜 Pecan nuts', '🌱 Seeds']
+    ingredients: ['🌿 24G Plant Protein', '🫐 Blueberries', '🍓 Strawberries', '🍌 Banana', '🌰 Hazelnuts', '🥜 Pecan nuts', '🌱 Seeds'],
+    qtyAvailable: 10
   },
   {
     id: 'overnight-oats',
@@ -15,7 +16,8 @@ export const menuItems: MenuItem[] = [
     description: 'Creamy overnight oats topped with fresh berries and crunchy nuts 🫐🥜',
     price: 199,
     image: '/images/menu/overnight-oats.jpg',
-    ingredients: ['🌾 Rolled oats', '🫐 Fresh berries', '🥜 Mixed nuts', '🌱 Chia seeds', '🥛 Almond milk']
+    ingredients: ['🌾 Rolled oats', '🫐 Fresh berries', '🥜 Mixed nuts', '🌱 Chia seeds', '🥛 Almond milk'],
+    qtyAvailable: 0
   },
   {
     id: 'filter-coffee-hot',
@@ -23,7 +25,8 @@ export const menuItems: MenuItem[] = [
     description: 'Freshly Brewed premium beans black filter coffee iced or hot 🔥',
     price: 99,
     image: '/images/menu/filter-coffee.jpg',
-    ingredients: ['☕ Premium coffee beans', '💧 Filtered water']
+    ingredients: ['☕ Premium coffee beans', '💧 Filtered water'],
+    qtyAvailable: 5
   },
   {
     id: 'filter-coffee-iced',
@@ -31,6 +34,7 @@ export const menuItems: MenuItem[] = [
     description: 'Freshly Brewed premium beans black filter coffee iced or hot ❄️',
     price: 99,
     image: '/images/menu/filter-coffee.jpg',
-    ingredients: ['☕ Premium coffee beans', '💧 Filtered water', '🧊 Ice']
+    ingredients: ['☕ Premium coffee beans', '💧 Filtered water', '🧊 Ice'],
+    qtyAvailable: 8
   }
 ]

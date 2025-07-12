@@ -132,7 +132,8 @@ export class MenuService {
           price: 299,
           image: '/images/menu/smoothie-bowl.jpg',
           ingredients: ['🌿 24G Plant Protein', '🫐 Blueberries', '🍓 Strawberries', '🍌 Banana', '🌰 Hazelnuts', '🥜 Pecan nuts', '🌱 Seeds'],
-          customizations: []
+          customizations: [],
+          qtyAvailable: 10
         },
         {
           id: 'overnight-oats',
@@ -149,7 +150,8 @@ export class MenuService {
               priceChange: 0,
               type: 'remove'
             }
-          ]
+          ],
+          qtyAvailable: 0
         },
         {
           id: 'filter-coffee-hot',
@@ -158,7 +160,8 @@ export class MenuService {
           price: 99,
           image: '/images/menu/filter-coffee.jpg',
           ingredients: ['☕ Premium coffee beans', '💧 Filtered water'],
-          customizations: []
+          customizations: [],
+          qtyAvailable: 5
         },
         {
           id: 'filter-coffee-iced',
@@ -167,7 +170,8 @@ export class MenuService {
           price: 99,
           image: '/images/menu/filter-coffee.jpg',
           ingredients: ['☕ Premium coffee beans', '💧 Filtered water', '🧊 Ice'],
-          customizations: []
+          customizations: [],
+          qtyAvailable: 8
         }
       ]
     }

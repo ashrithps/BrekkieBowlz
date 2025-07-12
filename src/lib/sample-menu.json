@@ -29,7 +29,8 @@
         "🥜 Pecan nuts",
         "🌱 Seeds"
       ],
-      "customizations": []
+      "customizations": [],
+      "qtyAvailable": 10
     },
     {
       "id": "overnight-oats",
@@ -53,7 +54,8 @@
           "priceChange": 0,
           "type": "remove"
         }
-      ]
+      ],
+      "qtyAvailable": 0
     },
     {
       "id": "filter-coffee-hot",
@@ -65,7 +67,8 @@
         "☕ Premium coffee beans",
         "💧 Filtered water"
       ],
-      "customizations": []
+      "customizations": [],
+      "qtyAvailable": 5
     },
     {
       "id": "filter-coffee-iced",
@@ -78,7 +81,8 @@
         "💧 Filtered water",
         "🧊 Ice"
       ],
-      "customizations": []
+      "customizations": [],
+      "qtyAvailable": 8
     }
   ]
 }

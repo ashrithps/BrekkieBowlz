@@ -14,6 +14,7 @@ export interface MenuItem {
   image: string
   ingredients?: string[]
   customizations?: Customization[]
+  qtyAvailable: number
 }
 
 export interface StoreConfig {
@@ -34,6 +35,7 @@ export interface MenuData {
 
 export interface CartItem extends MenuItem {
   quantity: number
+  baseItemId?: string
 }
 
 export interface CustomerInfo {

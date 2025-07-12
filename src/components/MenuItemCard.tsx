@@ -36,10 +36,16 @@ export default function MenuItemCard({
   }
 
   const handleAddToCart = () => {
-    onAddToCart(item, selectedCustomizations)
-    setSelectedCustomizations([])
-    setShowCustomizations(false)
+    if (item.qtyAvailable > 0) {
+      onAddToCart(item, selectedCustomizations)
+      setSelectedCustomizations([])
+      setShowCustomizations(false)
+    }
   }
+
+  const isOutOfStock = item.qtyAvailable === 0
+  const isLowStock = item.qtyAvailable > 0 && item.qtyAvailable <= 3
+  const canAddMore = cartQuantity < item.qtyAvailable
   return (
     <div className="bg-white rounded-2xl p-5 shadow-sm border border-gray-100 hover:shadow-lg hover:-translate-y-1 transition-all duration-300 group">
       <div className="flex items-start space-x-4">
@@ -66,11 +72,23 @@ export default function MenuItemCard({
         <div className="flex-1">
           <div className="flex justify-between items-start mb-3">
             <div>
-              {item.customizations && item.customizations.length > 0 && (
-                <span className="bg-pink-100 text-pink-700 text-xs font-semibold px-3 py-1 rounded-full mb-2 inline-block">
-                  ✨ CUSTOMIZE
-                </span>
-              )}
+              <div className="flex items-center gap-2 mb-2">
+                {item.customizations && item.customizations.length > 0 && (
+                  <span className="bg-pink-100 text-pink-700 text-xs font-semibold px-3 py-1 rounded-full">
+                    ✨ CUSTOMIZE
+                  </span>
+                )}
+                {isOutOfStock && (
+                  <span className="bg-red-100 text-red-700 text-xs font-semibold px-3 py-1 rounded-full">
+                    ❌ OUT OF STOCK
+                  </span>
+                )}
+                {isLowStock && !isOutOfStock && (
+                  <span className="bg-orange-100 text-orange-700 text-xs font-semibold px-3 py-1 rounded-full">
+                    ⚠️ LOW STOCK ({item.qtyAvailable} left)
+                  </span>
+                )}
+              </div>
               <h3 className="text-lg font-bold text-gray-900 group-hover:text-pink-600 transition-colors duration-200">
                 {item.name}
               </h3>
@@ -135,9 +153,14 @@ export default function MenuItemCard({
           {cartQuantity === 0 ? (
             <button
               onClick={handleAddToCart}
-              className="bg-pink-500 hover:bg-pink-600 text-white font-semibold py-2.5 px-5 rounded-xl text-sm hover:scale-105 active:scale-95 transition-all duration-200 shadow-sm hover:shadow-md"
+              disabled={isOutOfStock}
+              className={`font-semibold py-2.5 px-5 rounded-xl text-sm transition-all duration-200 shadow-sm ${
+                isOutOfStock
+                  ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
+                  : 'bg-pink-500 hover:bg-pink-600 text-white hover:scale-105 active:scale-95 hover:shadow-md'
+              }`}
             >
-              🛒 Add to Cart
+              {isOutOfStock ? '❌ Out of Stock' : '🛒 Add to Cart'}
             </button>
           ) : (
             <div className="flex items-center justify-between bg-pink-50 rounded-xl p-3 border border-pink-100">
@@ -157,7 +180,12 @@ export default function MenuItemCard({
               </div>
               <button
                 onClick={() => onUpdateQuantity(item.id, cartQuantity + 1)}
-                className="w-8 h-8 rounded-full bg-pink-500 hover:bg-pink-600 text-white font-bold flex items-center justify-center hover:scale-110 active:scale-95 transition-all duration-200 shadow-sm"
+                disabled={!canAddMore}
+                className={`w-8 h-8 rounded-full font-bold flex items-center justify-center transition-all duration-200 shadow-sm ${
+                  canAddMore
+                    ? 'bg-pink-500 hover:bg-pink-600 text-white hover:scale-110 active:scale-95'
+                    : 'bg-gray-300 text-gray-500 cursor-not-allowed'
+                }`}
               >
                 +
               </button>
