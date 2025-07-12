@@ -22,12 +22,30 @@ export default function OrderSummary({ items, total }: OrderSummaryProps) {
       <div className="space-y-4 mb-6">
         {items.map((item, index) => (
           <div 
-            key={item.id} 
+            key={`${item.id}-${index}`}
             className="flex justify-between items-center p-4 bg-pink-50 rounded-xl border border-pink-100 hover:bg-pink-100 transition-colors duration-200"
             style={{ animationDelay: `${index * 100}ms` }}
           >
             <div className="flex-1">
               <p className="font-bold text-gray-900 mb-2">{item.name}</p>
+              
+              {/* Show customizations if any */}
+              {item.customizations && item.customizations.length > 0 && (
+                <div className="mb-3">
+                  {item.customizations.map((customization, idx) => (
+                    <div key={idx} className="text-sm text-gray-600 ml-4">
+                      <span className="mr-2">↳</span>
+                      <span className="font-medium">{customization.name}</span>
+                      {customization.priceChange !== 0 && (
+                        <span className="ml-2 text-pink-600 font-semibold">
+                          ({customization.priceChange > 0 ? '+' : ''}{formatPrice(customization.priceChange)})
+                        </span>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              )}
+              
               <div className="flex items-center space-x-3">
                 <span className="bg-pink-500 text-white text-xs font-bold px-3 py-1 rounded-full">
                   Qty: {item.quantity}

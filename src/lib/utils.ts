@@ -14,7 +14,8 @@ export const formatOrderData = (items: CartItem[], customerInfo: CustomerInfo, t
     name: item.name,
     price: item.price,
     quantity: item.quantity,
-    subtotal: item.price * item.quantity
+    subtotal: item.price * item.quantity,
+    customizations: item.customizations || []
   }))
 
   return {
@@ -58,9 +59,19 @@ export const sendOrderWebhook = async (orderData: any): Promise<void> => {
 }
 
 export const formatOrderForWhatsApp = (items: CartItem[], customerInfo: CustomerInfo, total: number): string => {
-  const orderItems = items.map(item => 
-    `• ${item.name} x${item.quantity} - ${formatPrice(item.price * item.quantity)}`
-  ).join('\n')
+  const orderItems = items.map(item => {
+    let itemText = `• ${item.name} x${item.quantity} - ${formatPrice(item.price * item.quantity)}`
+    
+    // Add customizations if any
+    if (item.customizations && item.customizations.length > 0) {
+      const customizationText = item.customizations
+        .map(c => `  ↳ ${c.name}${c.priceChange !== 0 ? ` (${c.priceChange > 0 ? '+' : ''}${formatPrice(c.priceChange)})` : ''}`)
+        .join('\n')
+      itemText += '\n' + customizationText
+    }
+    
+    return itemText
+  }).join('\n')
 
   return `🥤 *Brekkie Bowlz Order*
 

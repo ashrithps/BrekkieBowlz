@@ -8,13 +8,15 @@ interface MenuItemCardProps {
   onAddToCart: (item: MenuItem, customizations?: Customization[]) => void
   cartQuantity: number
   onUpdateQuantity: (id: string, quantity: number) => void
+  findCartItemId?: (baseItemId: string) => string | null
 }
 
 export default function MenuItemCard({ 
   item, 
   onAddToCart, 
   cartQuantity, 
-  onUpdateQuantity 
+  onUpdateQuantity,
+  findCartItemId
 }: MenuItemCardProps) {
   const [selectedCustomizations, setSelectedCustomizations] = useState<Customization[]>([])
   const [showCustomizations, setShowCustomizations] = useState(false)
@@ -165,7 +167,19 @@ export default function MenuItemCard({
           ) : (
             <div className="flex items-center justify-between bg-pink-50 rounded-xl p-3 border border-pink-100">
               <button
-                onClick={() => onUpdateQuantity(item.id, cartQuantity - 1)}
+                onClick={() => {
+                  if (item.customizations && item.customizations.length > 0) {
+                    // For items with customizations, we need a different approach
+                    // Let's pass a special function to handle this
+                    if (onUpdateQuantity) {
+                      onUpdateQuantity(`${item.id}-remove-one`, 0);
+                    }
+                  } else {
+                    // For items without customizations, use normal quantity update
+                    const cartItemId = findCartItemId ? findCartItemId(item.id) : item.id;
+                    if (cartItemId) onUpdateQuantity(cartItemId, cartQuantity - 1);
+                  }
+                }}
                 className="w-8 h-8 rounded-full bg-pink-500 hover:bg-pink-600 text-white font-bold flex items-center justify-center hover:scale-110 active:scale-95 transition-all duration-200 shadow-sm"
               >
                 −
@@ -179,7 +193,16 @@ export default function MenuItemCard({
                 </span>
               </div>
               <button
-                onClick={() => onUpdateQuantity(item.id, cartQuantity + 1)}
+                onClick={() => {
+                  if (item.customizations && item.customizations.length > 0) {
+                    // For items with customizations, add a new item with default customizations
+                    onAddToCart(item, []);
+                  } else {
+                    // For items without customizations, use normal quantity update
+                    const cartItemId = findCartItemId ? findCartItemId(item.id) : item.id;
+                    if (cartItemId) onUpdateQuantity(cartItemId, cartQuantity + 1);
+                  }
+                }}
                 disabled={!canAddMore}
                 className={`w-8 h-8 rounded-full font-bold flex items-center justify-center transition-all duration-200 shadow-sm ${
                   canAddMore

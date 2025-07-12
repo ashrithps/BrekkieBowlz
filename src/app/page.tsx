@@ -81,11 +81,38 @@ export default function CheckoutPage() {
         qtyAvailable: menuItem.qtyAvailable // Keep the original stock limit
       }
       
+      
       return [...prev, itemWithCustomizations]
     })
   }
 
   const updateQuantity = (id: string, quantity: number) => {
+    // Handle special case for removing items with customizations
+    if (id.endsWith('-remove-one')) {
+      const baseItemId = id.replace('-remove-one', '')
+      setCartItems(prev => {
+        // Find the first item with this base item ID and remove one quantity
+        const items = prev.filter(item => item.id === baseItemId || item.id.startsWith(`${baseItemId}-`))
+        if (items.length === 0) return prev
+        
+        // Find the item with the highest quantity to reduce from
+        const itemToReduce = items.reduce((max, current) => 
+          current.quantity > max.quantity ? current : max
+        )
+        
+        if (itemToReduce.quantity === 1) {
+          // Remove the item entirely
+          return prev.filter(item => item.id !== itemToReduce.id)
+        } else {
+          // Reduce quantity by 1
+          return prev.map(item =>
+            item.id === itemToReduce.id ? { ...item, quantity: item.quantity - 1 } : item
+          )
+        }
+      })
+      return
+    }
+
     if (quantity === 0) {
       setCartItems(prev => prev.filter(item => item.id !== id))
     } else {
@@ -144,6 +171,12 @@ export default function CheckoutPage() {
     return cartItems
       .filter(item => item.id === baseItemId || item.id.startsWith(`${baseItemId}-`))
       .reduce((total, item) => total + item.quantity, 0)
+  }
+
+  // Find the cart item ID for a base item (for items without customizations)
+  const findCartItemIdByBaseId = (baseItemId: string) => {
+    const item = cartItems.find(item => item.id === baseItemId)
+    return item ? item.id : null
   }
 
   if (isLoading) {
@@ -319,6 +352,7 @@ export default function CheckoutPage() {
                 onAddToCart={addToCart}
                 cartQuantity={getTotalQuantityInCart(item.id)}
                 onUpdateQuantity={updateQuantity}
+                findCartItemId={findCartItemIdByBaseId}
               />
             ))}
           </div>
