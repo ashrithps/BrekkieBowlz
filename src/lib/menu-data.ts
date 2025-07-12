@@ -8,7 +8,7 @@ export const menuItems: MenuItem[] = [
     price: 299,
     image: '/images/menu/smoothie-bowl.jpg',
     ingredients: ['🌿 24G Plant Protein', '🫐 Blueberries', '🍓 Strawberries', '🍌 Banana', '🌰 Hazelnuts', '🥜 Pecan nuts', '🌱 Seeds'],
-    qtyAvailable: 10
+    qtyAvailable: 8
   },
   {
     id: 'overnight-oats',
@@ -26,7 +26,7 @@ export const menuItems: MenuItem[] = [
     price: 99,
     image: '/images/menu/filter-coffee.jpg',
     ingredients: ['☕ Premium coffee beans', '💧 Filtered water'],
-    qtyAvailable: 5
+    qtyAvailable: 2
   },
   {
     id: 'filter-coffee-iced',
@@ -35,6 +35,6 @@ export const menuItems: MenuItem[] = [
     price: 99,
     image: '/images/menu/filter-coffee.jpg',
     ingredients: ['☕ Premium coffee beans', '💧 Filtered water', '🧊 Ice'],
-    qtyAvailable: 8
+    qtyAvailable: 4
   }
 ]

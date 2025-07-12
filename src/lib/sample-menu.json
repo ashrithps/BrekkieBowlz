@@ -11,6 +11,10 @@
     "operatingHours": {
       "open": "08:00",
       "close": "20:00"
+    },
+    "heroSection": {
+      "title": "🥣 Bowls & More",
+      "subtitle": "Crafted with love, served with passion ✨"
     }
   },
   "menu": [

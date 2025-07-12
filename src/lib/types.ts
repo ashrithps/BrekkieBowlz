@@ -26,6 +26,10 @@ export interface StoreConfig {
     open: string
     close: string
   }
+  heroSection?: {
+    title: string
+    subtitle: string
+  }
 }
 
 export interface MenuData {

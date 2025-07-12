@@ -243,10 +243,10 @@ export default function CheckoutPage() {
         <section className="mb-10">
           <div className="text-center mb-8">
             <h1 className="text-3xl font-black text-gray-900 mb-3">
-              🥣 Bowls & More
+              {menuData?.storeConfig.heroSection?.title || '🥣 Bowls & More'}
             </h1>
             <p className="text-lg text-gray-600 mb-6">
-              Crafted with love, served with passion ✨
+              {menuData?.storeConfig.heroSection?.subtitle || 'Crafted with love, served with passion ✨'}
             </p>
           </div>
           

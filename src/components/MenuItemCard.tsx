@@ -46,8 +46,37 @@ export default function MenuItemCard({
   }
 
   const isOutOfStock = item.qtyAvailable === 0
-  const isLowStock = item.qtyAvailable > 0 && item.qtyAvailable <= 3
+  const isLowStock = item.qtyAvailable > 0 && item.qtyAvailable < 10
+  const isVeryLowStock = item.qtyAvailable > 0 && item.qtyAvailable < 6
   const canAddMore = cartQuantity < item.qtyAvailable
+
+  const getAvailabilityBadge = () => {
+    if (isOutOfStock) {
+      return (
+        <span className="bg-red-100 text-red-700 text-xs font-semibold px-3 py-1 rounded-full animate-pulse">
+          ❌ SOLD OUT
+        </span>
+      )
+    }
+    
+    if (isVeryLowStock) {
+      return (
+        <span className="bg-gradient-to-r from-red-500 to-orange-500 text-white text-xs font-bold px-3 py-1 rounded-full animate-bounce shadow-lg">
+          🔥 ONLY {item.qtyAvailable} LEFT!
+        </span>
+      )
+    }
+    
+    if (isLowStock) {
+      return (
+        <span className="bg-gradient-to-r from-orange-400 to-yellow-500 text-white text-xs font-bold px-3 py-1 rounded-full shadow-md">
+          ⚡ {item.qtyAvailable} REMAINING
+        </span>
+      )
+    }
+    
+    return null
+  }
   return (
     <div className="bg-white rounded-2xl p-5 shadow-sm border border-gray-100 hover:shadow-lg hover:-translate-y-1 transition-all duration-300 group">
       <div className="flex items-start space-x-4">
@@ -74,20 +103,11 @@ export default function MenuItemCard({
         <div className="flex-1">
           <div className="flex justify-between items-start mb-3">
             <div>
-              <div className="flex items-center gap-2 mb-2">
+              <div className="flex items-center gap-2 mb-2 flex-wrap">
+                {getAvailabilityBadge()}
                 {item.customizations && item.customizations.length > 0 && (
                   <span className="bg-pink-100 text-pink-700 text-xs font-semibold px-3 py-1 rounded-full">
                     ✨ CUSTOMIZE
-                  </span>
-                )}
-                {isOutOfStock && (
-                  <span className="bg-red-100 text-red-700 text-xs font-semibold px-3 py-1 rounded-full">
-                    ❌ OUT OF STOCK
-                  </span>
-                )}
-                {isLowStock && !isOutOfStock && (
-                  <span className="bg-orange-100 text-orange-700 text-xs font-semibold px-3 py-1 rounded-full">
-                    ⚠️ LOW STOCK ({item.qtyAvailable} left)
                   </span>
                 )}
               </div>
