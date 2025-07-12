@@ -5,7 +5,7 @@ import './globals.css'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://brekkiebowlz.vercel.app'),
+  metadataBase: new URL('https://bowlz.iloop.me'),
   title: 'Order Brekkie Bowlz RTB',
   description: 'Fresh smoothie bowls, overnight oats & specialty coffee delivered 9-10 AM. Order now for tomorrow!',
   keywords: ['smoothie bowls', 'healthy food', 'breakfast', 'overnight oats', 'coffee', 'RTB', 'delivery'],
@@ -14,11 +14,11 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Order Brekkie Bowlz RTB',
     description: 'Fresh smoothie bowls, overnight oats & specialty coffee delivered 9-10 AM. Order now for tomorrow!',
-    url: 'https://brekkiebowlz.vercel.app',
+    url: 'https://bowlz.iloop.me',
     siteName: 'Brekkie Bowlz RTB',
     images: [
       {
-        url: 'https://brekkiebowlz.vercel.app/logos/brekkiwbowlz.png',
+        url: 'https://bowlz.iloop.me/logos/brekkiwbowlz.png',
         width: 800,
         height: 800,
         alt: 'Brekkie Bowlz RTB Logo',
@@ -34,7 +34,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Order Brekkie Bowlz RTB',
     description: 'Fresh smoothie bowls, overnight oats & specialty coffee delivered 9-10 AM',
-    images: ['https://brekkiebowlz.vercel.app/logos/brekkiwbowlz.png'],
+    images: ['https://bowlz.iloop.me/logos/brekkiwbowlz.png'],
     creator: '@brekkiebowlz',
   },
   
@@ -63,7 +63,7 @@ export const metadata: Metadata = {
     'og:image:width': '800',
     'og:image:height': '800',
     'og:image:type': 'image/png',
-    'og:image:secure_url': 'https://brekkiebowlz.vercel.app/logos/brekkiwbowlz.png',
+    'og:image:secure_url': 'https://bowlz.iloop.me/logos/brekkiwbowlz.png',
     'og:image:alt': 'Brekkie Bowlz RTB Logo',
   },
 }
