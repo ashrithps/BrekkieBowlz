@@ -74,7 +74,7 @@ export default function CustomerForm({
             type="text"
             value={customerInfo.apartmentNumber}
             onChange={(e) => handleInputChange('apartmentNumber', e.target.value)}
-            placeholder="e.g., A-101, B-205"
+            placeholder="e.g., 1155, 606, 111"
             className={`w-full px-4 py-3 border-2 rounded-xl focus:ring-4 focus:ring-pink-200 focus:border-pink-400 transition-all duration-300 ${
               errors.apartmentNumber ? 'border-red-400 bg-red-50' : 'border-gray-200 hover:border-pink-300 focus:bg-pink-50'
             }`}
@@ -88,16 +88,21 @@ export default function CustomerForm({
           <label htmlFor="tower" className="block text-sm font-bold text-gray-700 mb-2">
             🏢 Tower Number *
           </label>
-          <input
+          <select
             id="tower"
-            type="text"
             value={customerInfo.towerNumber}
             onChange={(e) => handleInputChange('towerNumber', e.target.value)}
-            placeholder="e.g., Tower 1, Block C"
-            className={`w-full px-4 py-3 border-2 rounded-xl focus:ring-4 focus:ring-pink-200 focus:border-pink-400 transition-all duration-300 ${
+            className={`w-full px-4 py-3 border-2 rounded-xl focus:ring-4 focus:ring-pink-200 focus:border-pink-400 transition-all duration-300 appearance-none bg-white ${
               errors.towerNumber ? 'border-red-400 bg-red-50' : 'border-gray-200 hover:border-pink-300 focus:bg-pink-50'
             }`}
-          />
+          >
+            <option value="">Select Tower</option>
+            {Array.from({ length: 36 }, (_, i) => i + 1).map(tower => (
+              <option key={tower} value={tower.toString()}>
+                Tower {tower}
+              </option>
+            ))}
+          </select>
           {errors.towerNumber && (
             <p className="text-red-500 text-sm mt-1">{errors.towerNumber}</p>
           )}
