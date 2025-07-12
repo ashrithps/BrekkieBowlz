@@ -75,6 +75,29 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
+      <head>
+        {/* PWA Meta Tags for Full Screen */}
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+        <meta name="apple-mobile-web-app-title" content="Brekkie Bowlz" />
+        <meta name="mobile-web-app-capable" content="yes" />
+        <meta name="theme-color" content="#7c3aed" />
+        <meta name="msapplication-TileColor" content="#7c3aed" />
+        <meta name="msapplication-tap-highlight" content="no" />
+        
+        {/* Prevent zoom on input focus */}
+        <meta name="format-detection" content="telephone=no" />
+        
+        {/* Web App Manifest */}
+        <link rel="manifest" href="/manifest.json" />
+        
+        {/* Apple Touch Icons */}
+        <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+        <link rel="apple-touch-icon" sizes="152x152" href="/apple-touch-icon.png" />
+        <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+        <link rel="apple-touch-icon" sizes="167x167" href="/apple-touch-icon.png" />
+      </head>
       <body className={`${inter.className} bg-gradient-to-br from-purple-600 via-pink-600 to-orange-500 min-h-screen`}>
         <div className="max-w-sm mx-auto bg-white min-h-screen shadow-2xl md:rounded-3xl md:my-4 md:min-h-[calc(100vh-2rem)] overflow-hidden">
           {children}

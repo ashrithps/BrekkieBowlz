@@ -1,0 +1,40 @@
+{
+  "name": "Brekkie Bowlz RTB",
+  "short_name": "Brekkie Bowlz",
+  "description": "Fresh smoothie bowls, overnight oats & specialty coffee delivered 9-10 AM",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#7c3aed",
+  "theme_color": "#7c3aed",
+  "orientation": "portrait",
+  "scope": "/",
+  "lang": "en",
+  "icons": [
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    }
+  ],
+  "categories": ["food", "lifestyle"],
+  "screenshots": [
+    {
+      "src": "/logos/logo-social.jpg",
+      "sizes": "300x300",
+      "type": "image/jpeg",
+      "form_factor": "wide"
+    }
+  ]
+} 
