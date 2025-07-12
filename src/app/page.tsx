@@ -164,7 +164,7 @@ export default function CheckoutPage() {
               {menuData.storeConfig.closedMessage}
             </p>
             <div className="text-sm text-gray-500">
-              🕒 We'll be back during operating hours
+              🕒 We&apos;ll be back during operating hours
             </div>
           </div>
         </div>
