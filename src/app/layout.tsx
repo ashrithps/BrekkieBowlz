@@ -18,10 +18,10 @@ export const metadata: Metadata = {
     siteName: 'Brekkie Bowlz RTB',
     images: [
       {
-        url: 'https://bowlz.iloop.me/logos/logo-social.jpg',
-        width: 300,
-        height: 300,
-        alt: 'Brekkie Bowlz RTB Logo',
+        url: 'https://bowlz.iloop.me/logos/whatshare.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'Delicious Brekkie Bowlz smoothie bowl with fresh fruits and toppings',
         type: 'image/jpeg',
       }
     ],
@@ -34,7 +34,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Order Brekkie Bowlz RTB',
     description: 'Fresh smoothie bowls, overnight oats & specialty coffee delivered 9-10 AM',
-    images: ['https://bowlz.iloop.me/logos/logo-social.jpg'],
+    images: ['https://bowlz.iloop.me/logos/whatshare.jpg'],
     creator: '@brekkiebowlz',
   },
   
@@ -60,11 +60,11 @@ export const metadata: Metadata = {
   
   // Additional meta tags for better social sharing
   other: {
-    'og:image:width': '300',
-    'og:image:height': '300',
+    'og:image:width': '1200',
+    'og:image:height': '630',
     'og:image:type': 'image/jpeg',
-    'og:image:secure_url': 'https://bowlz.iloop.me/logos/logo-social.jpg',
-    'og:image:alt': 'Brekkie Bowlz RTB Logo',
+    'og:image:secure_url': 'https://bowlz.iloop.me/logos/whatshare.jpg',
+    'og:image:alt': 'Delicious Brekkie Bowlz smoothie bowl with fresh fruits and toppings',
   },
 }
 
