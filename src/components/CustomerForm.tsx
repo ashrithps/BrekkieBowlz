@@ -20,10 +20,29 @@ export default function CustomerForm({
 
   return (
     <div className="bg-white rounded-2xl p-6 mb-6 shadow-lg border border-gray-100 animate-in slide-in-from-bottom-4 duration-500">
-      <h3 className="text-xl font-bold text-gray-900 mb-6 flex items-center">
+      <h3 className="text-xl font-bold text-gray-900 mb-4 flex items-center">
         <span className="mr-3 text-2xl">📝</span>
         Delivery Information 🚚
       </h3>
+
+      {/* Delivery Area Notice */}
+      <div className="bg-gradient-to-r from-green-50 to-emerald-50 border-2 border-green-200 rounded-xl p-4 mb-6">
+        <div className="flex items-start space-x-3">
+          <span className="text-2xl">🏢</span>
+          <div>
+            <h4 className="font-bold text-green-800 text-sm mb-1">
+              📍 Delivery Area
+            </h4>
+            <p className="text-green-700 text-sm font-medium">
+              Delivery only within <span className="font-bold">L&T Raintree Boulevard</span>
+            </p>
+            <p className="text-green-600 text-xs mt-1 flex items-center">
+              <span className="mr-1">🚚</span>
+              <span className="font-semibold">Delivery charges on us!</span>
+            </p>
+          </div>
+        </div>
+      </div>
       
       <div className="space-y-4">
         <div>
