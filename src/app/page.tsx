@@ -1,9 +1,9 @@
 'use client'
 
-import { useState, useEffect } from 'react'
-import { CartItem, CustomerInfo } from '@/lib/types'
-import { menuItems } from '@/lib/menu-data'
-import { calculateTotal, validateForm, getCustomerInfo, saveCustomerInfo } from '@/lib/utils'
+import { useState, useEffect, useRef } from 'react'
+import { CartItem, CustomerInfo, MenuData, MenuItem } from '@/lib/types'
+import { MenuService } from '@/lib/menu-service'
+import { calculateTotal, validateForm, getCustomerInfo, saveCustomerInfo, formatPrice } from '@/lib/utils'
 import MenuItemCard from '@/components/MenuItemCard'
 import CustomerForm from '@/components/CustomerForm'
 import OrderSummary from '@/components/OrderSummary'
@@ -21,11 +21,24 @@ export default function CheckoutPage() {
   })
   const [errors, setErrors] = useState<{ [key: string]: string }>({})
   const [isSubmitting, setIsSubmitting] = useState(false)
+  const [menuData, setMenuData] = useState<MenuData | null>(null)
+  const [isLoading, setIsLoading] = useState(true)
 
-  // Load saved customer info on mount
+  // Load menu data and customer info on mount
   useEffect(() => {
-    const savedCustomerInfo = getCustomerInfo()
-    setCustomerInfo(savedCustomerInfo)
+    const loadData = async () => {
+      try {
+        const data = await MenuService.fetchMenuData()
+        setMenuData(data)
+        const savedCustomerInfo = getCustomerInfo()
+        setCustomerInfo(savedCustomerInfo)
+      } catch (error) {
+        console.error('Failed to load menu data:', error)
+      } finally {
+        setIsLoading(false)
+      }
+    }
+    loadData()
   }, [])
 
   // Auto-save customer info when it changes
@@ -35,17 +48,32 @@ export default function CheckoutPage() {
     }
   }, [customerInfo])
 
-  const addToCart = (menuItem: any) => {
+  const addToCart = (menuItem: any, customizations?: any[]) => {
     setCartItems(prev => {
-      const existingItem = prev.find(item => item.id === menuItem.id)
+      const itemId = customizations && customizations.length > 0 
+        ? `${menuItem.id}-${customizations.map(c => c.id).join('-')}`
+        : menuItem.id
+      
+      const existingItem = prev.find(item => item.id === itemId)
+      
       if (existingItem) {
         return prev.map(item =>
-          item.id === menuItem.id
+          item.id === itemId
             ? { ...item, quantity: item.quantity + 1 }
             : item
         )
       }
-      return [...prev, { ...menuItem, quantity: 1 }]
+      
+      const customizationPrice = customizations ? customizations.reduce((total, c) => total + c.priceChange, 0) : 0
+      const itemWithCustomizations = {
+        ...menuItem,
+        id: itemId,
+        price: menuItem.price + customizationPrice,
+        customizations: customizations || [],
+        quantity: 1
+      }
+      
+      return [...prev, itemWithCustomizations]
     })
   }
 
@@ -78,10 +106,75 @@ export default function CheckoutPage() {
   const total = calculateTotal(cartItems)
 
   const totalCartItems = cartItems.reduce((total, item) => total + item.quantity, 0)
+  const deliveryInfoRef = useRef<HTMLDivElement>(null)
+
+  const scrollToDeliveryInfo = () => {
+    if (deliveryInfoRef.current) {
+      deliveryInfoRef.current.scrollIntoView({ 
+        behavior: 'smooth',
+        block: 'start'
+      })
+    }
+  }
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-pink-500 mx-auto mb-4"></div>
+          <p className="text-gray-600">Loading menu...</p>
+        </div>
+      </div>
+    )
+  }
+
+  if (!menuData) {
+    return (
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <div className="text-center">
+          <p className="text-red-600 mb-4">Failed to load menu data</p>
+          <button 
+            onClick={() => window.location.reload()} 
+            className="bg-pink-500 text-white px-4 py-2 rounded-full"
+          >
+            Retry
+          </button>
+        </div>
+      </div>
+    )
+  }
+
+  if (!MenuService.isStoreOpen(menuData.storeConfig)) {
+    return (
+      <div className="min-h-screen bg-gray-50">
+        <Header cartItemCount={0} />
+        <div className="flex items-center justify-center min-h-[70vh]">
+          <div className="text-center px-6">
+            <div className="mb-6">
+              <img 
+                src="/logos/brekkiebowlz_transparent.png"
+                alt="Brekkie Bowlz"
+                className="h-24 w-auto mx-auto opacity-60 mb-4"
+              />
+            </div>
+            <h2 className="text-2xl font-bold text-gray-800 mb-3">
+              {menuData.storeConfig.name}
+            </h2>
+            <p className="text-lg text-gray-600 mb-4">
+              {menuData.storeConfig.closedMessage}
+            </p>
+            <div className="text-sm text-gray-500">
+              🕒 We'll be back during operating hours
+            </div>
+          </div>
+        </div>
+      </div>
+    )
+  }
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <Header cartItemCount={totalCartItems} />
+      <Header cartItemCount={totalCartItems} onCartClick={scrollToDeliveryInfo} />
       
       <main className="px-4 py-6">
         {/* Hero Section */}
@@ -190,7 +283,7 @@ export default function CheckoutPage() {
             <div className="w-20 h-1 bg-pink-500 rounded-full mx-auto mt-4"></div>
           </div>
           <div className="space-y-4">
-            {menuItems.map(item => (
+            {menuData.menu.map(item => (
               <MenuItemCard
                 key={item.id}
                 item={item}
@@ -204,7 +297,9 @@ export default function CheckoutPage() {
 
         {/* Order Summary */}
         {cartItems.length > 0 && (
-          <OrderSummary items={cartItems} total={total} />
+          <div ref={deliveryInfoRef}>
+            <OrderSummary items={cartItems} total={total} />
+          </div>
         )}
 
         {/* Customer Form */}
@@ -221,6 +316,7 @@ export default function CheckoutPage() {
           <DateSelector
             selectedDate={customerInfo.deliveryDate}
             onDateChange={handleDateChange}
+            skipDates={menuData.storeConfig.skipDates}
           />
         )}
 
@@ -255,6 +351,24 @@ export default function CheckoutPage() {
           </div>
         )}
       </main>
+
+      {/* Floating Cart Button */}
+      {cartItems.length > 0 && (
+        <div className="fixed bottom-6 left-1/2 transform -translate-x-1/2 z-50">
+          <button
+            onClick={scrollToDeliveryInfo}
+            className="bg-pink-500 hover:bg-pink-600 text-white font-bold py-4 px-6 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 active:scale-95 flex items-center space-x-3"
+          >
+            <svg viewBox="0 0 24 24" className="w-5 h-5" fill="none">
+              <path stroke="currentColor" strokeWidth="2" d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4zM3 6h18M16 10a4 4 0 01-8 0"/>
+            </svg>
+            <span>View Cart • {formatPrice(total)}</span>
+            <div className="bg-white bg-opacity-20 rounded-full px-2 py-1">
+              <span className="text-sm font-bold">{totalCartItems}</span>
+            </div>
+          </button>
+        </div>
+      )}
     </div>
   )
 }

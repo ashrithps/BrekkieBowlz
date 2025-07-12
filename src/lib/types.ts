@@ -1,3 +1,11 @@
+export interface Customization {
+  id: string
+  name: string
+  description: string
+  priceChange: number
+  type: 'add' | 'remove' | 'substitute'
+}
+
 export interface MenuItem {
   id: string
   name: string
@@ -5,6 +13,23 @@ export interface MenuItem {
   price: number
   image: string
   ingredients?: string[]
+  customizations?: Customization[]
+}
+
+export interface StoreConfig {
+  isOpen: boolean
+  name: string
+  closedMessage: string
+  skipDates: string[]
+  operatingHours: {
+    open: string
+    close: string
+  }
+}
+
+export interface MenuData {
+  storeConfig: StoreConfig
+  menu: MenuItem[]
 }
 
 export interface CartItem extends MenuItem {

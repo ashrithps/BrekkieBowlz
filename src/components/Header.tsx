@@ -1,8 +1,9 @@
 interface HeaderProps {
   cartItemCount: number
+  onCartClick?: () => void
 }
 
-export default function Header({ cartItemCount }: HeaderProps) {
+export default function Header({ cartItemCount, onCartClick }: HeaderProps) {
   return (
     <header className="sticky top-0 z-50 bg-white border-b border-gray-200 px-4 py-6">
       <div className="flex items-center justify-between">
@@ -16,7 +17,10 @@ export default function Header({ cartItemCount }: HeaderProps) {
           />
         </div>
         
-        <button className="p-2 rounded-full bg-pink-100 hover:bg-pink-200 transition-all duration-200 relative">
+        <button 
+          onClick={onCartClick}
+          className="p-2 rounded-full bg-pink-100 hover:bg-pink-200 transition-all duration-200 relative"
+        >
           <svg viewBox="0 0 24 24" className="w-5 h-5 text-pink-600" fill="none">
             <path stroke="currentColor" strokeWidth="2" d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4zM3 6h18M16 10a4 4 0 01-8 0"/>
           </svg>

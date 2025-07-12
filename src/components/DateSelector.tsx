@@ -2,14 +2,16 @@
 
 import { DeliveryDate } from '@/lib/types'
 import { getNextFourDays, getDeliveryTimeSlot } from '@/lib/utils'
+import { MenuService } from '@/lib/menu-service'
 
 interface DateSelectorProps {
   selectedDate: string
   onDateChange: (date: string) => void
+  skipDates?: string[]
 }
 
-export default function DateSelector({ selectedDate, onDateChange }: DateSelectorProps) {
-  const availableDates = getNextFourDays()
+export default function DateSelector({ selectedDate, onDateChange, skipDates = [] }: DateSelectorProps) {
+  const availableDates = MenuService.getAvailableDeliveryDates(skipDates)
   const deliveryTimeSlot = getDeliveryTimeSlot()
 
   return (

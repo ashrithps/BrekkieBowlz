@@ -1,10 +1,11 @@
 import Image from 'next/image'
-import { MenuItem } from '@/lib/types'
+import { MenuItem, Customization } from '@/lib/types'
 import { formatPrice } from '@/lib/utils'
+import { useState } from 'react'
 
 interface MenuItemCardProps {
   item: MenuItem
-  onAddToCart: (item: MenuItem) => void
+  onAddToCart: (item: MenuItem, customizations?: Customization[]) => void
   cartQuantity: number
   onUpdateQuantity: (id: string, quantity: number) => void
 }
@@ -15,6 +16,30 @@ export default function MenuItemCard({
   cartQuantity, 
   onUpdateQuantity 
 }: MenuItemCardProps) {
+  const [selectedCustomizations, setSelectedCustomizations] = useState<Customization[]>([])
+  const [showCustomizations, setShowCustomizations] = useState(false)
+
+  const handleCustomizationToggle = (customization: Customization) => {
+    setSelectedCustomizations(prev => {
+      const exists = prev.find(c => c.id === customization.id)
+      if (exists) {
+        return prev.filter(c => c.id !== customization.id)
+      } else {
+        return [...prev, customization]
+      }
+    })
+  }
+
+  const getTotalPrice = () => {
+    const customizationPrice = selectedCustomizations.reduce((total, c) => total + c.priceChange, 0)
+    return item.price + customizationPrice
+  }
+
+  const handleAddToCart = () => {
+    onAddToCart(item, selectedCustomizations)
+    setSelectedCustomizations([])
+    setShowCustomizations(false)
+  }
   return (
     <div className="bg-white rounded-2xl p-5 shadow-sm border border-gray-100 hover:shadow-lg hover:-translate-y-1 transition-all duration-300 group">
       <div className="flex items-start space-x-4">
@@ -41,25 +66,75 @@ export default function MenuItemCard({
         <div className="flex-1">
           <div className="flex justify-between items-start mb-3">
             <div>
-              <span className="bg-pink-100 text-pink-700 text-xs font-semibold px-3 py-1 rounded-full mb-2 inline-block">
-                ✨ CUSTOMIZED
-              </span>
+              {item.customizations && item.customizations.length > 0 && (
+                <span className="bg-pink-100 text-pink-700 text-xs font-semibold px-3 py-1 rounded-full mb-2 inline-block">
+                  ✨ CUSTOMIZE
+                </span>
+              )}
               <h3 className="text-lg font-bold text-gray-900 group-hover:text-pink-600 transition-colors duration-200">
                 {item.name}
               </h3>
             </div>
-            <span className="text-xl font-black text-pink-600">
-              {formatPrice(item.price)}
-            </span>
+            <div className="text-right">
+              {selectedCustomizations.length > 0 && (
+                <div className="text-sm text-gray-500 line-through">
+                  {formatPrice(item.price)}
+                </div>
+              )}
+              <span className="text-xl font-black text-pink-600">
+                {formatPrice(getTotalPrice())}
+              </span>
+            </div>
           </div>
 
           <p className="text-sm text-gray-600 mb-4 leading-relaxed">
             {item.description}
           </p>
 
+          {/* Customizations */}
+          {item.customizations && item.customizations.length > 0 && (
+            <div className="mb-4">
+              <button
+                onClick={() => setShowCustomizations(!showCustomizations)}
+                className="text-sm text-pink-600 font-medium hover:text-pink-700 flex items-center mb-2"
+              >
+                🔧 Customize
+                <span className="ml-1">{showCustomizations ? '▲' : '▼'}</span>
+              </button>
+              
+              {showCustomizations && (
+                <div className="space-y-2 mt-2">
+                  {item.customizations.map((customization) => (
+                    <label
+                      key={customization.id}
+                      className="flex items-center justify-between p-2 bg-gray-50 rounded-lg cursor-pointer hover:bg-gray-100"
+                    >
+                      <div className="flex items-center">
+                        <input
+                          type="checkbox"
+                          checked={selectedCustomizations.some(c => c.id === customization.id)}
+                          onChange={() => handleCustomizationToggle(customization)}
+                          className="mr-2 text-pink-500 focus:ring-pink-500"
+                        />
+                        <span className="text-sm font-medium text-gray-700">
+                          {customization.name}
+                        </span>
+                      </div>
+                      {customization.priceChange !== 0 && (
+                        <span className="text-sm text-gray-600">
+                          {customization.priceChange > 0 ? '+' : ''}{formatPrice(customization.priceChange)}
+                        </span>
+                      )}
+                    </label>
+                  ))}
+                </div>
+              )}
+            </div>
+          )}
+
           {cartQuantity === 0 ? (
             <button
-              onClick={() => onAddToCart(item)}
+              onClick={handleAddToCart}
               className="bg-pink-500 hover:bg-pink-600 text-white font-semibold py-2.5 px-5 rounded-xl text-sm hover:scale-105 active:scale-95 transition-all duration-200 shadow-sm hover:shadow-md"
             >
               🛒 Add to Cart
