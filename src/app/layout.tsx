@@ -14,16 +14,19 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Order Brekkie Bowlz RTB',
     description: 'Fresh smoothie bowls, overnight oats & specialty coffee delivered 9-10 AM. Order now for tomorrow!',
+    url: 'https://brekkiebowlz.vercel.app',
+    siteName: 'Brekkie Bowlz RTB',
     images: [
       {
-        url: '/logos/brekkiwbowlz.png',
-        width: 400,
-        height: 400,
+        url: 'https://brekkiebowlz.vercel.app/logos/brekkiwbowlz.png',
+        width: 800,
+        height: 800,
         alt: 'Brekkie Bowlz RTB Logo',
+        type: 'image/png',
       }
     ],
     type: 'website',
-    siteName: 'Brekkie Bowlz RTB',
+    locale: 'en_US',
   },
   
   // Twitter Cards
@@ -31,7 +34,8 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Order Brekkie Bowlz RTB',
     description: 'Fresh smoothie bowls, overnight oats & specialty coffee delivered 9-10 AM',
-    images: ['/logos/brekkiwbowlz.png'],
+    images: ['https://brekkiebowlz.vercel.app/logos/brekkiwbowlz.png'],
+    creator: '@brekkiebowlz',
   },
   
   // App manifest & icons
@@ -52,6 +56,15 @@ export const metadata: Metadata = {
         url: '/icon-512.png',
       },
     ],
+  },
+  
+  // Additional meta tags for better social sharing
+  other: {
+    'og:image:width': '800',
+    'og:image:height': '800',
+    'og:image:type': 'image/png',
+    'og:image:secure_url': 'https://brekkiebowlz.vercel.app/logos/brekkiwbowlz.png',
+    'og:image:alt': 'Brekkie Bowlz RTB Logo',
   },
 }
 
