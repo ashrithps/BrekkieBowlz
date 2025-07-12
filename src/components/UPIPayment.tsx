@@ -1,5 +1,6 @@
 'use client'
 
+import Image from 'next/image'
 import { CartItem, CustomerInfo } from '@/lib/types'
 import { calculateTotal, formatOrderData, sendOrderWebhook, validateForm } from '@/lib/utils'
 
@@ -18,7 +19,7 @@ const paymentApps = [
     name: 'PhonePe',
     package: 'com.phonepe.app',
     scheme: 'phonepe://pay',
-    logo: 'PhonePe',
+    logo: '/payment_logos/icons8-phone-pe.svg',
     color: 'bg-purple-600',
     textColor: 'text-white'
   },
@@ -27,7 +28,7 @@ const paymentApps = [
     name: 'Google Pay',
     package: 'com.google.android.apps.nbu.paisa.user',
     scheme: 'tez://upi/pay',
-    logo: 'GPay',
+    logo: '/payment_logos/icons8-google-pay.svg',
     color: 'bg-blue-600',
     textColor: 'text-white'
   },
@@ -36,7 +37,7 @@ const paymentApps = [
     name: 'BHIM',
     package: 'in.org.npci.upiapp',
     scheme: 'upi://pay',
-    logo: 'BHIM',
+    logo: '/payment_logos/icons8-bhim.svg',
     color: 'bg-orange-600',
     textColor: 'text-white'
   },
@@ -45,7 +46,7 @@ const paymentApps = [
     name: 'Paytm',
     package: 'net.one97.paytm',
     scheme: 'paytm://pay',
-    logo: 'Paytm',
+    logo: '/payment_logos/icons8-paytm.svg',
     color: 'bg-blue-500',
     textColor: 'text-white'
   }
@@ -123,10 +124,16 @@ export default function UPIPayment({ cartItems, customerInfo, onPaymentSuccess, 
             key={app.id}
             onClick={() => handlePayment(app)}
             disabled={isSubmitting}
-            className={`${app.color} ${app.textColor} p-4 rounded-xl font-bold text-center transition-all duration-200 hover:scale-105 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed shadow-lg flex flex-col items-center justify-center min-h-[80px]`}
+            className={`bg-white border-2 border-gray-200 p-4 rounded-xl font-bold text-center transition-all duration-200 hover:scale-105 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed shadow-lg flex flex-col items-center justify-center min-h-[80px] hover:border-pink-300`}
           >
-            <div className="text-lg font-black mb-1">{app.logo}</div>
-            <div className="text-xs opacity-90">{app.name}</div>
+            <Image
+              src={app.logo}
+              alt={app.name}
+              width={40}
+              height={40}
+              className="mb-2"
+            />
+            <div className="text-xs text-gray-700">{app.name}</div>
           </button>
         ))}
       </div>
