@@ -255,7 +255,7 @@ export default function CheckoutPage() {
             <img 
               src="/logos/hero_png.png" 
               alt="Brekkie Bowlz"
-              className="h-32 w-auto object-contain"
+              className="h-32 w-auto object-contain animate-fade-in-float"
             />
           </div>
         </section>
