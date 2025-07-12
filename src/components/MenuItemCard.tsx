@@ -78,28 +78,28 @@ export default function MenuItemCard({
     return null
   }
   return (
-    <div className="bg-white rounded-2xl p-5 shadow-sm border border-gray-100 hover:shadow-lg hover:-translate-y-1 transition-all duration-300 group">
-      <div className="flex items-start space-x-4">
-        <div className="relative">
-          <div className="w-20 h-20 rounded-2xl overflow-hidden flex-shrink-0 group-hover:scale-105 transition-transform duration-300">
-            <img
-              src={item.image}
-              alt={item.name}
-              className="w-full h-full object-cover"
-              onError={(e) => {
-                // Fallback to Unsplash images if local images aren't available
-                const fallbackUrls = {
-                  'smoothie-bowl': 'https://images.unsplash.com/photo-1511690743698-d9d85f2fbf38?w=200&h=200&fit=crop&crop=center',
-                  'overnight-oats': 'https://images.unsplash.com/photo-1517982258267-41e4a6f7ee2c?w=200&h=200&fit=crop&crop=center',
-                  'filter-coffee-hot': 'https://images.unsplash.com/photo-1497935586351-b67a49e012bf?w=200&h=200&fit=crop&crop=center',
-                  'filter-coffee-iced': 'https://images.unsplash.com/photo-1461023058943-07fcf677d9e2?w=200&h=200&fit=crop&crop=center'
-                }
-                e.currentTarget.src = fallbackUrls[item.id as keyof typeof fallbackUrls] || fallbackUrls['smoothie-bowl']
-              }}
-            />
-          </div>
-        </div>
-        
+    <div className="bg-white rounded-2xl shadow-sm border border-gray-100 hover:shadow-lg hover:-translate-y-1 transition-all duration-300 group overflow-hidden">
+      {/* Image at top of card */}
+      <div className="relative w-full h-48 group-hover:scale-105 transition-transform duration-300 overflow-hidden">
+        <img
+          src={item.image}
+          alt={item.name}
+          className="w-full h-full object-cover border-b-2 border-pink-100"
+          onError={(e) => {
+            // Fallback to Unsplash images if local images aren't available
+            const fallbackUrls = {
+              'smoothie-bowl': 'https://images.unsplash.com/photo-1511690743698-d9d85f2fbf38?w=400&h=300&fit=crop&crop=center',
+              'overnight-oats': 'https://images.unsplash.com/photo-1517982258267-41e4a6f7ee2c?w=400&h=300&fit=crop&crop=center',
+              'filter-coffee-hot': 'https://images.unsplash.com/photo-1497935586351-b67a49e012bf?w=400&h=300&fit=crop&crop=center',
+              'filter-coffee-iced': 'https://images.unsplash.com/photo-1461023058943-07fcf677d9e2?w=400&h=300&fit=crop&crop=center'
+            }
+            e.currentTarget.src = fallbackUrls[item.id as keyof typeof fallbackUrls] || fallbackUrls['smoothie-bowl']
+          }}
+        />
+      </div>
+      
+      {/* Content section */}
+      <div className="p-5">
         <div className="flex-1">
           <div className="flex justify-between items-start mb-3">
             <div>
