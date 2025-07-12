@@ -250,86 +250,13 @@ export default function CheckoutPage() {
             </p>
           </div>
           
-          {/* Auto-Scrolling Hero Images */}
-          <div className="relative h-64 rounded-2xl overflow-hidden shadow-xl mb-8">
-            <div className="flex animate-[scroll_15s_linear_infinite] h-full">
-              <div className="min-w-full h-full relative">
-                <img 
-                  src="/images/menu/smoothie-bowl.jpg" 
-                  alt="Smoothie Bowl"
-                  className="w-full h-full object-cover"
-                  onError={(e) => {
-                    e.currentTarget.src = "https://images.unsplash.com/photo-1511690743698-d9d85f2fbf38?w=600&h=400&fit=crop&crop=center"
-                  }}
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
-                <div className="absolute bottom-4 left-4 text-white">
-                  <h3 className="text-xl font-bold">🥤 Smoothie Bowls</h3>
-                  <p className="text-sm opacity-90">Fresh & Nutritious</p>
-                </div>
-              </div>
-              <div className="min-w-full h-full relative">
-                <img 
-                  src="/images/menu/overnight-oats.jpg" 
-                  alt="Overnight Oats"
-                  className="w-full h-full object-cover"
-                  onError={(e) => {
-                    e.currentTarget.src = "https://images.unsplash.com/photo-1517982258267-41e4a6f7ee2c?w=600&h=400&fit=crop&crop=center"
-                  }}
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
-                <div className="absolute bottom-4 left-4 text-white">
-                  <h3 className="text-xl font-bold">🥣 Overnight Oats</h3>
-                  <p className="text-sm opacity-90">Creamy & Delicious</p>
-                </div>
-              </div>
-              <div className="min-w-full h-full relative">
-                <img 
-                  src="/images/menu/filter-coffee.jpg" 
-                  alt="Hot Coffee"
-                  className="w-full h-full object-cover"
-                  onError={(e) => {
-                    e.currentTarget.src = "https://images.unsplash.com/photo-1497935586351-b67a49e012bf?w=600&h=400&fit=crop&crop=center"
-                  }}
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
-                <div className="absolute bottom-4 left-4 text-white">
-                  <h3 className="text-xl font-bold">☕ Hot Coffee</h3>
-                  <p className="text-sm opacity-90">Premium Beans</p>
-                </div>
-              </div>
-              <div className="min-w-full h-full relative">
-                <img 
-                  src="/images/menu/filter-coffee.jpg" 
-                  alt="Iced Coffee"
-                  className="w-full h-full object-cover"
-                  onError={(e) => {
-                    e.currentTarget.src = "https://images.unsplash.com/photo-1461023058943-07fcf677d9e2?w=600&h=400&fit=crop&crop=center"
-                  }}
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
-                <div className="absolute bottom-4 left-4 text-white">
-                  <h3 className="text-xl font-bold">🧊 Iced Coffee</h3>
-                  <p className="text-sm opacity-90">Cool & Refreshing</p>
-                </div>
-              </div>
-              {/* Duplicate first image for seamless loop */}
-              <div className="min-w-full h-full relative">
-                <img 
-                  src="/images/menu/smoothie-bowl.jpg" 
-                  alt="Smoothie Bowl"
-                  className="w-full h-full object-cover"
-                  onError={(e) => {
-                    e.currentTarget.src = "https://images.unsplash.com/photo-1511690743698-d9d85f2fbf38?w=600&h=400&fit=crop&crop=center"
-                  }}
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
-                <div className="absolute bottom-4 left-4 text-white">
-                  <h3 className="text-xl font-bold">🥤 Smoothie Bowls</h3>
-                  <p className="text-sm opacity-90">Fresh & Nutritious</p>
-                </div>
-              </div>
-            </div>
+          {/* Hero Image */}
+          <div className="flex items-center justify-center mb-8">
+            <img 
+              src="/logos/hero_png.png" 
+              alt="Brekkie Bowlz"
+              className="h-32 w-auto object-contain"
+            />
           </div>
         </section>
 
