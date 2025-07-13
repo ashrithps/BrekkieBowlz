@@ -1,3 +1,5 @@
+import Image from 'next/image'
+
 interface HeaderProps {
   cartItemCount: number
   onCartClick?: () => void
@@ -10,10 +12,14 @@ export default function Header({ cartItemCount, onCartClick }: HeaderProps) {
         <div className="w-10"></div> {/* Spacer for centering */}
         
         <div className="flex items-center justify-center">
-          <img 
+          <Image 
             src="/logos/brekkiebowlz_transparent.png"
             alt="Brekkie Bowlz"
+            width={120}
+            height={48}
             className="h-12 w-auto"
+            priority={true}
+            quality={90}
           />
         </div>
         

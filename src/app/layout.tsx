@@ -78,6 +78,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
+        {/* Performance Optimizations */}
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link rel="preload" href="/logos/brekkiebowlz_transparent.png" as="image" />
+        <link rel="preload" href="/logos/hero_png.png" as="image" />
+        
         {/* PWA Meta Tags for Full Screen */}
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover" />
         <meta name="apple-mobile-web-app-capable" content="yes" />

@@ -81,14 +81,20 @@ export default function MenuItemCard({
     <div className="bg-white rounded-2xl shadow-sm border border-gray-100 hover:shadow-lg hover:-translate-y-1 transition-all duration-300 group overflow-hidden">
       {/* Image at top of card */}
       <div className="relative w-full h-48 group-hover:scale-105 transition-transform duration-300 overflow-hidden">
-        <img
+        <Image
           src={item.image}
           alt={item.name}
-          className="w-full h-full object-cover border-b-2 border-pink-100"
+          fill
+          className="object-cover border-b-2 border-pink-100"
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+          priority={false}
+          quality={85}
+          placeholder="blur"
+          blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAIAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWGRkrHB0f/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAwDAQACEQMRAD8AltJagyeH0AthI5xdrLcNM91BF5pX2HaH9bcfaSXWGaRmknyJckliyjqTzSlT54b6bk+h0R//2Q=="
           onError={(e) => {
-            // Fallback to default image if Blob URL fails
-            const fallbackUrl = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjMwMCIgdmlld0JveD0iMCAwIDQwMCAzMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSI0MDAiIGhlaWdodD0iMzAwIiBmaWxsPSIjRjNGNEY2Ii8+CjxwYXRoIGQ9Ik0yMDAgMTUwQzIwNyAxNTAgMjEzIDEzMyAyMjAgMTI1QzIyNyAxMzMgMjMzIDE1MCAyNDAgMTUwQzIzMyAxNTcgMjI3IDE3NCAyMjAgMTgyQzIxMyAxNzQgMjA3IDE1NyAyMDAgMTUwWiIgZmlsbD0iI0U5MTZFNCI+CjxwYXRoIGQ9Ik0xNjAgMTcwQzE2NSAxNzAgMTcwIDE1NSAxNzUgMTQ5QzE4MCAxNTUgMTg1IDE3MCAxOTAgMTcwQzE4NSAxNzUgMTgwIDE5MCAxNzUgMTk2QzE3MCAxOTAgMTY1IDE3NSAxNjAgMTcwWiIgZmlsbD0iI0VGNDQ0NCI+Cjx0ZXh0IHg9IjIwMCIgeT0iMjMwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmaWxsPSIjNjNCMzdBIiBmb250LWZhbWlseT0ic2Fucy1zZXJpZiIgZm9udC1zaXplPSIxNCIgZm9udC13ZWlnaHQ9IjUwMCI+Rm9vZCBJbWFnZSBOb3QgQXZhaWxhYmxlPC90ZXh0Pgo8L3N2Zz4='
-            e.currentTarget.src = fallbackUrl
+            // Fallback to SVG placeholder
+            const target = e.target as HTMLImageElement
+            target.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjMwMCIgdmlld0JveD0iMCAwIDQwMCAzMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSI0MDAiIGhlaWdodD0iMzAwIiBmaWxsPSIjRjNGNEY2Ii8+CjxwYXRoIGQ9Ik0yMDAgMTUwQzIwNyAxNTAgMjEzIDEzMyAyMjAgMTI1QzIyNyAxMzMgMjMzIDE1MCAyNDAgMTUwQzIzMyAxNTcgMjI3IDE3NCAyMjAgMTgyQzIxMyAxNzQgMjA3IDE1NyAyMDAgMTUwWiIgZmlsbD0iI0U5MTZFNCI+CjxwYXRoIGQ9Ik0xNjAgMTcwQzE2NSAxNzAgMTcwIDE1NSAxNzUgMTQ5QzE4MCAxNTUgMTg1IDE3MCAxOTAgMTcwQzE4NSAxNzUgMTgwIDE5MCAxNzUgMTk2QzE3MCAxOTAgMTY1IDE3NSAxNjAgMTcwWiIgZmlsbD0iI0VGNDQ0NCI+Cjx0ZXh0IHg9IjIwMCIgeT0iMjMwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmaWxsPSIjNjNCMzdBIiBmb250LWZhbWlseT0ic2Fucy1zZXJpZiIgZm9udC1zaXplPSIxNCIgZm9udC13ZWlnaHQ9IjUwMCI+Rm9vZCBJbWFnZSBOb3QgQXZhaWxhYmxlPC90ZXh0Pgo8L3N2Zz4='
           }}
         />
       </div>

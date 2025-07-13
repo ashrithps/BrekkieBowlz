@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect, useRef } from 'react'
+import Image from 'next/image'
 import { CartItem, CustomerInfo, MenuData, MenuItem } from '@/lib/types'
 import { MenuService } from '@/lib/menu-service'
 import { calculateTotal, validateForm, getCustomerInfo, saveCustomerInfo, formatPrice } from '@/lib/utils'
@@ -213,10 +214,13 @@ export default function CheckoutPage() {
         <div className="flex items-center justify-center min-h-[70vh]">
           <div className="text-center px-6">
             <div className="mb-6">
-              <img 
+              <Image 
                 src="/logos/brekkiebowlz_transparent.png"
                 alt="Brekkie Bowlz"
+                width={120}
+                height={96}
                 className="h-24 w-auto mx-auto opacity-60 mb-4"
+                priority={false}
               />
             </div>
             <h2 className="text-2xl font-bold text-gray-800 mb-3">
@@ -252,10 +256,14 @@ export default function CheckoutPage() {
           
           {/* Hero Image */}
           <div className="flex items-center justify-center mb-8">
-            <img 
+            <Image 
               src="/logos/hero_png.png" 
               alt="Brekkie Bowlz"
+              width={200}
+              height={128}
               className="h-32 w-auto object-contain animate-fade-in-float"
+              priority={true}
+              quality={90}
             />
           </div>
         </section>
@@ -326,10 +334,13 @@ export default function CheckoutPage() {
         {cartItems.length === 0 && (
           <div className="text-center py-16">
             <div className="flex justify-center mb-6">
-              <img 
+              <Image 
                 src="/logos/brekkiebowlz_transparent.png"
                 alt="Brekkie Bowlz"
+                width={160}
+                height={128}
                 className="h-32 w-auto opacity-60"
+                priority={false}
               />
             </div>
             <h3 className="text-xl font-bold text-gray-800 mb-2">
