@@ -99,9 +99,9 @@ Thank you for your order! 🙏`
 }
 
 export const generateWhatsAppURL = (message: string, phoneNumber: string = '919742462600'): string => {
-  // Use encodeURI instead of encodeURIComponent to preserve emoji characters
-  const encodedMessage = encodeURI(message)
-  return `https://wa.me/${phoneNumber}?text=${encodedMessage}`
+  // Use encodeURIComponent for proper emoji encoding and api.whatsapp.com for better compatibility
+  const encodedMessage = encodeURIComponent(message)
+  return `https://api.whatsapp.com/send?phone=${phoneNumber}&text=${encodedMessage}`
 }
 
 export const validateMobile = (mobile: string): boolean => {

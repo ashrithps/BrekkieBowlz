@@ -3,7 +3,7 @@
 import Image from 'next/image'
 import { useState } from 'react'
 import { CartItem, CustomerInfo } from '@/lib/types'
-import { calculateTotal, formatOrderForWhatsApp, generateWhatsAppURL, validateForm } from '@/lib/utils'
+import { calculateTotal, formatOrderForWhatsApp, generateWhatsAppURL, validateForm, formatOrderData, sendOrderWebhook } from '@/lib/utils'
 
 interface WhatsAppCheckoutProps {
   cartItems: CartItem[]
@@ -37,6 +37,10 @@ export default function WhatsAppCheckout({
     setIsLoading(true)
 
     try {
+      // Send order data to webhook first
+      const orderData = formatOrderData(cartItems, customerInfo, total)
+      await sendOrderWebhook(orderData)
+      
       // Format order message for WhatsApp
       const orderMessage = formatOrderForWhatsApp(cartItems, customerInfo, total)
       
