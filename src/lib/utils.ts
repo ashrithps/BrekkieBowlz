@@ -20,6 +20,7 @@ export const formatOrderData = (items: CartItem[], customerInfo: CustomerInfo, t
 
   return {
     customerInfo: {
+      name: customerInfo.name,
       mobile: customerInfo.mobile,
       apartmentNumber: customerInfo.apartmentNumber,
       towerNumber: customerInfo.towerNumber,
@@ -73,11 +74,19 @@ export const formatOrderForWhatsApp = (items: CartItem[], customerInfo: Customer
     return itemText
   }).join('\n')
 
-  return `🥤 *Brekkie Bowlz Order*
+  let message = `🥤 *Brekkie Bowlz Order*
 
+👤 Name: ${customerInfo.name}
 📱 Mobile: ${customerInfo.mobile}
 🏠 Apartment: ${customerInfo.apartmentNumber}
-🏢 Tower: ${customerInfo.towerNumber}
+🏢 Tower: ${customerInfo.towerNumber}`
+
+  // Add comments if provided
+  if (customerInfo.comments && customerInfo.comments.trim()) {
+    message += `\n💬 Comments: ${customerInfo.comments.trim()}`
+  }
+
+  message += `
 
 *Order Details:*
 ${orderItems}
@@ -85,6 +94,8 @@ ${orderItems}
 💰 *Total: ${formatPrice(total)}*
 
 Thank you for your order! 🙏`
+
+  return message
 }
 
 export const generateWhatsAppURL = (message: string, phoneNumber: string = '919742462600'): string => {
@@ -100,6 +111,12 @@ export const validateMobile = (mobile: string): boolean => {
 
 export const validateForm = (customerInfo: CustomerInfo): { [key: string]: string } => {
   const errors: { [key: string]: string } = {}
+
+  if (!customerInfo.name.trim()) {
+    errors.name = 'Name is required'
+  } else if (customerInfo.name.trim().length < 2) {
+    errors.name = 'Name must be at least 2 characters long'
+  }
 
   if (!customerInfo.mobile) {
     errors.mobile = 'Mobile number is required'
@@ -153,10 +170,12 @@ export const getCustomerInfo = (): CustomerInfo => {
         const defaultDeliveryDate = tomorrow.toISOString().split('T')[0]
         
         return {
+          name: parsed.name || '',
           mobile: parsed.mobile || '',
           apartmentNumber: parsed.apartmentNumber || '',
           towerNumber: parsed.towerNumber || '',
-          deliveryDate: parsed.deliveryDate || defaultDeliveryDate
+          deliveryDate: parsed.deliveryDate || defaultDeliveryDate,
+          comments: parsed.comments || ''
         }
       }
     }
@@ -169,10 +188,12 @@ export const getCustomerInfo = (): CustomerInfo => {
   const defaultDeliveryDate = tomorrow.toISOString().split('T')[0]
   
   return {
+    name: '',
     mobile: '',
     apartmentNumber: '',
     towerNumber: '',
-    deliveryDate: defaultDeliveryDate
+    deliveryDate: defaultDeliveryDate,
+    comments: ''
   }
 }
 

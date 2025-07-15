@@ -30,6 +30,7 @@ export interface StoreConfig {
     title: string
     subtitle: string
   }
+  checkout_type?: 'payment' | 'whatsapp'
 }
 
 export interface MenuData {
@@ -43,10 +44,12 @@ export interface CartItem extends MenuItem {
 }
 
 export interface CustomerInfo {
+  name: string
   mobile: string
   apartmentNumber: string
   towerNumber: string
   deliveryDate: string
+  comments?: string
 }
 
 export interface DeliveryDate {

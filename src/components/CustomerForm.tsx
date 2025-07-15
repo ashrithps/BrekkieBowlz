@@ -46,6 +46,25 @@ export default function CustomerForm({
       
       <div className="space-y-4">
         <div>
+          <label htmlFor="name" className="block text-sm font-bold text-gray-700 mb-2">
+            👤 Full Name *
+          </label>
+          <input
+            id="name"
+            type="text"
+            value={customerInfo.name}
+            onChange={(e) => handleInputChange('name', e.target.value)}
+            placeholder="Enter your full name"
+            className={`w-full px-4 py-3 border-2 rounded-xl focus:ring-4 focus:ring-pink-200 focus:border-pink-400 transition-all duration-300 ${
+              errors.name ? 'border-red-400 bg-red-50' : 'border-gray-200 hover:border-pink-300 focus:bg-pink-50'
+            }`}
+          />
+          {errors.name && (
+            <p className="text-red-500 text-sm mt-1">{errors.name}</p>
+          )}
+        </div>
+
+        <div>
           <label htmlFor="mobile" className="block text-sm font-bold text-gray-700 mb-2">
             📱 Mobile Number *
           </label>
@@ -106,6 +125,29 @@ export default function CustomerForm({
           {errors.towerNumber && (
             <p className="text-red-500 text-sm mt-1">{errors.towerNumber}</p>
           )}
+        </div>
+
+        <div>
+          <label htmlFor="comments" className="block text-sm font-bold text-gray-700 mb-2">
+            💬 Additional Comments (Optional)
+          </label>
+          <textarea
+            id="comments"
+            value={customerInfo.comments || ''}
+            onChange={(e) => handleInputChange('comments', e.target.value)}
+            placeholder="Any special instructions or preferences..."
+            rows={3}
+            className="w-full px-4 py-3 border-2 rounded-xl focus:ring-4 focus:ring-pink-200 focus:border-pink-400 transition-all duration-300 border-gray-200 hover:border-pink-300 focus:bg-pink-50 resize-none"
+            maxLength={200}
+          />
+          <div className="flex justify-between items-center mt-1">
+            <p className="text-xs text-gray-500">
+              Share any dietary preferences, delivery instructions, etc.
+            </p>
+            <p className="text-xs text-gray-400">
+              {(customerInfo.comments || '').length}/200
+            </p>
+          </div>
         </div>
 
       </div>
