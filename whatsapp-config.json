@@ -1,0 +1,39 @@
+{
+  "webhook_json_updates": {
+    "description": "Add these fields to your webhook JSON response to configure dynamic WhatsApp messaging",
+    "storeConfig": {
+      "checkout_type": "whatsapp",
+      "whatsapp": {
+        "phone_number": "919742462600",
+        "message_template": "🥤 *{{store_name}} Order*\n\n👤 Name: {{customer_name}}\n📱 Mobile: {{customer_mobile}}\n🏠 Apartment: {{apartment_number}}\n🏢 Tower: {{tower_number}}\n💬 Comments: {{comments}}\n📅 Delivery: {{delivery_date}}\n\n*Order Details:*\n{{order_items}}\n\n💰 *Total: {{total}}*\n\nThank you for your order! 🙏"
+      }
+    }
+  },
+  "current_default_message_format": {
+    "template": "🥤 *Brekkie Bowlz Order*\n\n👤 Name: {{customer_name}}\n📱 Mobile: {{customer_mobile}}\n🏠 Apartment: {{apartment_number}}\n🏢 Tower: {{tower_number}}\n💬 Comments: {{comments}}\n\n*Order Details:*\n{{order_items}}\n\n💰 *Total: {{total}}*\n\nThank you for your order! 🙏",
+    "default_phone": "919742462600"
+  },
+  "available_template_variables": {
+    "customer_data": {
+      "{{customer_name}}": "Customer's full name",
+      "{{customer_mobile}}": "Customer's mobile number",
+      "{{apartment_number}}": "Customer's apartment number",
+      "{{tower_number}}": "Customer's tower number",
+      "{{comments}}": "Customer's additional comments (optional)",
+      "{{delivery_date}}": "Selected delivery date"
+    },
+    "order_data": {
+      "{{order_items}}": "Formatted list of ordered items with quantities and prices",
+      "{{total}}": "Formatted total amount (e.g., ₹150)"
+    },
+    "custom_variables": {
+      "{{store_name}}": "You can add custom text like store name in the template"
+    }
+  },
+  "implementation_notes": {
+    "phone_number": "Should be in international format without + sign (e.g., 919742462600 for India)",
+    "message_template": "Use double curly braces {{variable_name}} for dynamic content",
+    "fallback": "If whatsapp config is not provided, defaults to phone: 919742462600 and current message format",
+    "emoji_encoding": "Emojis are automatically URL encoded for WhatsApp compatibility"
+  }
+}

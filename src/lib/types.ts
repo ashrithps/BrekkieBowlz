@@ -31,6 +31,10 @@ export interface StoreConfig {
     subtitle: string
   }
   checkout_type?: 'payment' | 'whatsapp'
+  whatsapp?: {
+    phone_number: string
+    message_template: string
+  }
 }
 
 export interface MenuData {

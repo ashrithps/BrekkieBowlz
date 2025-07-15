@@ -2,7 +2,7 @@
 
 import Image from 'next/image'
 import { useState } from 'react'
-import { CartItem, CustomerInfo } from '@/lib/types'
+import { CartItem, CustomerInfo, StoreConfig } from '@/lib/types'
 import { calculateTotal, formatOrderForWhatsApp, generateWhatsAppURL, validateForm, formatOrderData, sendOrderWebhook } from '@/lib/utils'
 
 interface WhatsAppCheckoutProps {
@@ -12,6 +12,7 @@ interface WhatsAppCheckoutProps {
   isSubmitting: boolean
   errors: { [key: string]: string }
   setErrors: (errors: { [key: string]: string }) => void
+  storeConfig: StoreConfig
 }
 
 export default function WhatsAppCheckout({ 
@@ -20,7 +21,8 @@ export default function WhatsAppCheckout({
   onOrderSuccess, 
   isSubmitting, 
   errors, 
-  setErrors 
+  setErrors,
+  storeConfig
 }: WhatsAppCheckoutProps) {
   const [isLoading, setIsLoading] = useState(false)
   const total = calculateTotal(cartItems)
@@ -41,11 +43,15 @@ export default function WhatsAppCheckout({
       const orderData = formatOrderData(cartItems, customerInfo, total)
       await sendOrderWebhook(orderData)
       
+      // Get dynamic values from store config
+      const phoneNumber = storeConfig.whatsapp?.phone_number || '919742462600'
+      const messageTemplate = storeConfig.whatsapp?.message_template
+      
       // Format order message for WhatsApp
-      const orderMessage = formatOrderForWhatsApp(cartItems, customerInfo, total)
+      const orderMessage = formatOrderForWhatsApp(cartItems, customerInfo, total, messageTemplate)
       
       // Generate WhatsApp URL with order details
-      const whatsappURL = generateWhatsAppURL(orderMessage, '919742462600')
+      const whatsappURL = generateWhatsAppURL(orderMessage, phoneNumber)
       
       // Open WhatsApp with the order
       window.open(whatsappURL, '_blank')

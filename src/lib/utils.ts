@@ -59,7 +59,8 @@ export const sendOrderWebhook = async (orderData: any): Promise<void> => {
   }
 }
 
-export const formatOrderForWhatsApp = (items: CartItem[], customerInfo: CustomerInfo, total: number): string => {
+export const formatOrderForWhatsApp = (items: CartItem[], customerInfo: CustomerInfo, total: number, messageTemplate?: string): string => {
+  // Format order items
   const orderItems = items.map(item => {
     let itemText = `• ${item.name} x${item.quantity} - ${formatPrice(item.price * item.quantity)}`
     
@@ -74,19 +75,21 @@ export const formatOrderForWhatsApp = (items: CartItem[], customerInfo: Customer
     return itemText
   }).join('\n')
 
-  let message = `🥤 *Brekkie Bowlz Order*
+  // If no template provided, use default
+  if (!messageTemplate) {
+    let message = `🥤 *Brekkie Bowlz Order*
 
 👤 Name: ${customerInfo.name}
 📱 Mobile: ${customerInfo.mobile}
 🏠 Apartment: ${customerInfo.apartmentNumber}
 🏢 Tower: ${customerInfo.towerNumber}`
 
-  // Add comments if provided
-  if (customerInfo.comments && customerInfo.comments.trim()) {
-    message += `\n💬 Comments: ${customerInfo.comments.trim()}`
-  }
+    // Add comments if provided
+    if (customerInfo.comments && customerInfo.comments.trim()) {
+      message += `\n💬 Comments: ${customerInfo.comments.trim()}`
+    }
 
-  message += `
+    message += `
 
 *Order Details:*
 ${orderItems}
@@ -95,7 +98,19 @@ ${orderItems}
 
 Thank you for your order! 🙏`
 
-  return message
+    return message
+  }
+
+  // Use template with variable substitution
+  return messageTemplate
+    .replace('{{customer_name}}', customerInfo.name)
+    .replace('{{customer_mobile}}', customerInfo.mobile)
+    .replace('{{apartment_number}}', customerInfo.apartmentNumber)
+    .replace('{{tower_number}}', customerInfo.towerNumber)
+    .replace('{{comments}}', customerInfo.comments || '')
+    .replace('{{order_items}}', orderItems)
+    .replace('{{total}}', formatPrice(total))
+    .replace('{{delivery_date}}', customerInfo.deliveryDate)
 }
 
 export const generateWhatsAppURL = (message: string, phoneNumber: string = '919742462600'): string => {

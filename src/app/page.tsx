@@ -341,6 +341,7 @@ export default function CheckoutPage() {
                 isSubmitting={isSubmitting}
                 errors={errors}
                 setErrors={setErrors}
+                storeConfig={menuData.storeConfig}
               />
             )}
           </>
