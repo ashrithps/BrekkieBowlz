@@ -10,15 +10,18 @@ import CustomerForm from '@/components/CustomerForm'
 import OrderSummary from '@/components/OrderSummary'
 import Header from '@/components/Header'
 import UPIPayment from '@/components/UPIPayment'
+import WhatsAppCheckout from '@/components/WhatsAppCheckout'
 import DateSelector from '@/components/DateSelector'
 
 export default function CheckoutPage() {
   const [cartItems, setCartItems] = useState<CartItem[]>([])
   const [customerInfo, setCustomerInfo] = useState<CustomerInfo>({
+    name: '',
     mobile: '',
     apartmentNumber: '',
     towerNumber: '',
-    deliveryDate: ''
+    deliveryDate: '',
+    comments: ''
   })
   const [errors, setErrors] = useState<{ [key: string]: string }>({})
   const [isSubmitting, setIsSubmitting] = useState(false)
@@ -318,16 +321,29 @@ export default function CheckoutPage() {
           />
         )}
 
-        {/* UPI Payment */}
+        {/* Dynamic Checkout - Payment or WhatsApp */}
         {cartItems.length > 0 && (
-          <UPIPayment
-            cartItems={cartItems}
-            customerInfo={customerInfo}
-            onPaymentSuccess={handlePaymentSuccess}
-            isSubmitting={isSubmitting}
-            errors={errors}
-            setErrors={setErrors}
-          />
+          <>
+            {(!menuData.storeConfig.checkout_type || menuData.storeConfig.checkout_type === 'payment') ? (
+              <UPIPayment
+                cartItems={cartItems}
+                customerInfo={customerInfo}
+                onPaymentSuccess={handlePaymentSuccess}
+                isSubmitting={isSubmitting}
+                errors={errors}
+                setErrors={setErrors}
+              />
+            ) : (
+              <WhatsAppCheckout
+                cartItems={cartItems}
+                customerInfo={customerInfo}
+                onOrderSuccess={handlePaymentSuccess}
+                isSubmitting={isSubmitting}
+                errors={errors}
+                setErrors={setErrors}
+              />
+            )}
+          </>
         )}
 
         {/* Empty Cart Message */}
